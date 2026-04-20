@@ -11,10 +11,7 @@ export const sumFinalNumber = (ch: string, max: number): number => {
   return sum;
 };
 
-export const sumWhenMaxEqualToStringLength = (
-  ch: string,
-  max: number,
-): number => {
+export const sumWhenMaxEqualToStringLength = (ch: string): number => {
   let sumMax = 0;
   for (const element of ch) {
     sumMax += Number(element);
