@@ -37,7 +37,7 @@ export const sumNumber = (req: Request, res: Response): Response => {
   }
 
   if (maxEqualToStringLength(ch, n)) {
-    const result = sumWhenMaxEqualToStringLength(ch, n);
+    const result = sumWhenMaxEqualToStringLength(ch);
     return res.status(200).json({ data: result });
   } else {
     const result = sumFinalNumber(ch, n);
