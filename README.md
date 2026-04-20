@@ -5,6 +5,7 @@ A simple REST API that takes a string of digits and returns the sum of the first
 ---
 
 ## 🚀 Features
+
 - Works with a continuous string (e.g. `"123456"`)
 - Sums digits one by one (1 + 2 + 3 ...)
 - Returns the sum of the first **N** digits
@@ -17,6 +18,7 @@ A simple REST API that takes a string of digits and returns the sum of the first
 ### POST /sum
 
 #### Request Body
+
 ```json
 {
   "input": "123456",
@@ -25,6 +27,7 @@ A simple REST API that takes a string of digits and returns the sum of the first
 ```
 
 #### Success Response
+
 ```json
 {
   "sum": 6
@@ -32,6 +35,7 @@ A simple REST API that takes a string of digits and returns the sum of the first
 ```
 
 #### Error Response
+
 ```json
 {
   "error": "N exceeds the length of the string"
@@ -41,6 +45,7 @@ A simple REST API that takes a string of digits and returns the sum of the first
 ---
 
 ## ⚙️ How It Works
+
 1. The API receives a string of digits
 2. Splits the string into individual characters
 3. Converts each character into a number
@@ -63,7 +68,7 @@ npm install
 npm run dev
 ```
 
-
 ## 📌 Notes
+
 - Input must be a string of digits (e.g. `"12345"`)
 - The API returns an error if **N** is greater than the string length
