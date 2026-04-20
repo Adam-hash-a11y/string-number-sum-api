@@ -52,7 +52,7 @@ A simple REST API that takes a string of digits and returns the sum of the first
 ## 🛠️ Installation
 
 ```bash
-git clone https://github.com/your-username/string-number-sum-api.git
+git clone https://github.com/Adam-hash-a11y/string-number-sum-api.git
 cd string-number-sum-api
 npm install
 ```
