@@ -1,22 +1,80 @@
-# String Number Sum API
+# 📦 String Number Sum API
 
-A REST API that takes a string of digits and returns the sum of the top **N** largest digits.
+A REST API that validates input strictly and returns the sum of the **N largest digits** from a numeric string.
+
+This project includes:
+
+- strict validation layer
+- unit tests (API, service, validator)
+- CI pipeline (GitHub Actions)
+- linting + pre-commit hooks (Husky)
 
 ---
 
-## Features
+## 🏗 Project Structure
 
-- Accepts a string of digits (e.g. `"123456"`)
-- Finds and sums the **N largest** digits
-- Validates input strictly — no letters, no extra fields, no missing fields
+```
+src
+├── api
+├── controller
+├── routes
+├── service
+├── types
+└── validator
+
+test
+├── api
+├── service
+└── validator
+
+.github
+└── workflows
+
+.husky
+```
 
 ---
 
-## Endpoint
+## 🚀 Features
 
-### POST /api/sumNumber/add
+- Accepts a numeric string input (e.g. `"123456"`)
+- Returns sum of the **N largest digits**
+- Strict validation:
+  - no letters allowed
+  - no extra fields
+  - no missing fields
+- Fully tested (unit tests for all layers)
+- CI pipeline with automated test + lint checks
+- Pre-commit hook enforcement via Husky
 
-#### Request Body
+---
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/Adam-hash-a11y/string-number-sum-api.git
+cd string-number-sum-api
+npm install
+```
+
+---
+
+## ▶️ Run Project
+
+```bash
+npm run dev
+```
+
+---
+
+## 📡 API Endpoint
+
+### POST `/api/sumNumber/add`
+
+---
+
+## 📥 Request Body
+
 ```json
 {
   "ch": "123456",
@@ -24,14 +82,20 @@ A REST API that takes a string of digits and returns the sum of the top **N** la
 }
 ```
 
-#### Success Response
+---
+
+## 📤 Success Response
+
 ```json
 {
   "data": 15
 }
 ```
 
-#### Error Responses
+---
+
+## ❌ Error Responses
+
 ```json
 { "message": "Invalid request body" }
 { "message": "ch must be a numeric string" }
@@ -41,33 +105,73 @@ A REST API that takes a string of digits and returns the sum of the top **N** la
 
 ---
 
-## How It Works
+## ⚙️ How It Works
 
-1. Validates the request body — rejects extra fields, missing fields, invalid types
-2. Checks `ch` contains only digits
-3. Checks `n` is a positive integer and does not exceed the length of `ch`
-4. If `n` equals the length of `ch` — sums all digits directly
-5. Otherwise — finds and removes the largest digit `n` times, summing as it goes
+1. Validates request body structure (no extra/missing fields)
+2. Ensures `ch` contains only digits
+3. Validates `n` is a positive integer
+4. Ensures `n <= length of ch`
+5. Computes sum of the **N largest digits**
 
 ---
 
-## Installation
+## 🧠 Example
 
-```bash
-git clone https://github.com/Adam-hash-a11y/string-number-sum-api.git
-cd string-number-sum-api
-npm install
+### Input
+
+```json
+{
+  "ch": "987654",
+  "n": 3
+}
 ```
 
-## Run
+### Process
 
-```bash
-npm run dev
+- Pick largest digits → 9 + 8 + 7
+
+### Output
+
+```json
+{
+  "data": 24
+}
 ```
 
-## Notes
+---
 
-- `ch` must be a string of digits only — e.g. `"12345"`
+## 🧪 Testing
+
+- API tests → request/response validation
+- Service tests → business logic
+- Validator tests → input validation rules
+
+```bash
+npm test
+```
+
+---
+
+## ⚙️ CI Pipeline
+
+- Runs unit tests
+- Runs ESLint checks
+- Ensures code quality before merge
+
+---
+
+## 🪝 Git Hooks
+
+Pre-commit hooks (Husky) ensure:
+
+- lint rules are respected
+- code quality is enforced before commits
+
+---
+
+## 📌 Notes
+
+- `ch` must be a string of digits only
 - `n` must be a positive integer
-- `n` cannot be greater than the length of `ch`
-- No extra fields allowed in the request body
+- `n` cannot exceed the length of `ch`
+- No extra fields allowed in request body
