@@ -1,34 +1,32 @@
-export const sumFinalNumber = (ch: string, max: number): number => {
+export const sumTopNDigits = (ch: string, n: number): number => {
   let remaining = ch;
   let sum = 0;
 
-  for (let i = 0; i < max; i++) {
-    const temp = getMaxFromString(remaining);
-    sum += temp;
-    remaining = removeMax(remaining, temp);
+  for (let i = 0; i < n; i++) {
+    const max = getMaxDigit(remaining);
+    sum += max;
+    remaining = removeDigit(remaining, max);
   }
 
   return sum;
 };
 
-export const sumWhenMaxEqualToStringLength = (ch: string): number => {
-  let sumMax = 0;
-  for (const element of ch) {
-    sumMax += Number(element);
+export const sumAllDigits = (ch: string): number => {
+  let sum = 0;
+  for (const digit of ch) {
+    sum += Number(digit);
   }
-  return sumMax;
+  return sum;
 };
 
-export const getMaxFromString = (ch: string): number => {
+const getMaxDigit = (ch: string): number => {
   let max = Number(ch[0]);
-  for (const element of ch) {
-    if (Number(element) > max) {
-      max = Number(element);
-    }
+  for (const digit of ch) {
+    if (Number(digit) > max) max = Number(digit);
   }
   return max;
 };
 
-export const removeMax = (ch: string, max: number): string => {
-  return ch.replace(String(max), "");
+const removeDigit = (ch: string, digit: number): string => {
+  return ch.replace(String(digit), "");
 };
