@@ -19,7 +19,7 @@ export const sumAllDigits = (ch: string): number => {
   return sum;
 };
 
-const getMaxDigit = (ch: string): number => {
+export const getMaxDigit = (ch: string): number => {
   let max = Number(ch[0]);
   for (const digit of ch) {
     if (Number(digit) > max) max = Number(digit);
@@ -27,6 +27,6 @@ const getMaxDigit = (ch: string): number => {
   return max;
 };
 
-const removeDigit = (ch: string, digit: number): string => {
+export const removeDigit = (ch: string, digit: number): string => {
   return ch.replace(String(digit), "");
 };
