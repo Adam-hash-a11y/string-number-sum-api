@@ -1,5 +1,23 @@
 import validator from "validator";
-export const testIsAllNumber = (ch: string): boolean => {
+import { SumNumberBody } from "../types/sumNumber.types";
+
+export const isValidBody = (body: SumNumberBody): boolean => {
+  for (const key of Object.keys(body)) {
+    if (key !== "ch" && key !== "n") return false;
+  }
+  if (
+    body.ch === undefined ||
+    body.ch === null ||
+    body.ch === "" ||
+    body.n === undefined ||
+    body.n === null
+  ) {
+    return false;
+  }
+  return true;
+};
+
+export const isAllDigits = (ch: string): boolean => {
   let i = 0;
   while (i < ch.length && ch[i] >= "0" && ch[i] <= "9") {
     i++;
@@ -7,19 +25,12 @@ export const testIsAllNumber = (ch: string): boolean => {
   return i >= ch.length;
 };
 
-export const maxCompairedToStringLength = (ch: string, n: number): boolean => {
+export const isNGreaterThanLength = (ch: string, n: number): boolean => {
   return n > ch.length;
 };
 
-export const maxEqualToStringLength = (ch: string, n: number): boolean => {
+export const isNEqualToLength = (ch: string, n: number): boolean => {
   return ch.length === n;
-};
-
-export const isValidString = (ch: string): boolean => {
-  if (ch === undefined || ch === null || ch === "") {
-    return false;
-  }
-  return true;
 };
 
 export const isValidN = (n: number): boolean => {
