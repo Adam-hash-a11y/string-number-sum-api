@@ -1,46 +1,41 @@
 import { Request, Response } from "express";
 import {
+  isValidBody,
+  isAllDigits,
   isValidN,
-  isValidString,
-  maxCompairedToStringLength,
-  maxEqualToStringLength,
-  testIsAllNumber,
+  isNGreaterThanLength,
+  isNEqualToLength,
 } from "../validator/sumNumber.validator";
-import {
-  sumFinalNumber,
-  sumWhenMaxEqualToStringLength,
-} from "../service/sumNumberService";
+import { sumTopNDigits, sumAllDigits } from "../service/sumNumberService";
 
-export const sumNumber = (req: Request, res: Response): Response => {
-  const { n, ch } = req.body;
-  const isNumeric = testIsAllNumber(ch);
-  const isValid = isValidString(ch);
-  const isValidNumber = isValidN(n);
-
-  const nBiggerThanStringLength = maxCompairedToStringLength(ch, n);
-  if (!isValid) {
-    return res
-      .status(400)
-      .json({ message: "Invalid input: Cannot accept empty String" });
+export const sumNumber = (req: Request, res: Response) => {
+  if (!isValidBody(req.body)) {
+    return res.status(400).json({ message: "Invalid request body" });
   }
-  if (!isNumeric) {
+
+  const { n, ch } = req.body;
+
+  if (!isAllDigits(ch)) {
     return res
       .status(400)
       .json({ message: "Invalid input: ch must contain only digits" });
   }
 
-  if (!isValidNumber) {
+  if (!isValidN(n)) {
     return res.status(400).json({ message: "n must be a positive integer" });
   }
-  if (nBiggerThanStringLength) {
-    return res.status(400).json({ message: "n is bigger than string length" });
+
+  if (isNGreaterThanLength(ch, n)) {
+    return res
+      .status(400)
+      .json({ message: "n cannot exceed the length of ch" });
   }
 
-  if (maxEqualToStringLength(ch, n)) {
-    const result = sumWhenMaxEqualToStringLength(ch);
+  if (isNEqualToLength(ch, n)) {
+    const result = sumAllDigits(ch);
     return res.status(200).json({ data: result });
   } else {
-    const result = sumFinalNumber(ch, n);
+    const result = sumTopNDigits(ch, n);
     return res.status(200).json({ data: result });
   }
 };
