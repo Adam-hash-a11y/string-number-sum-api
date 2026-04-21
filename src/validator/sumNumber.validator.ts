@@ -1,4 +1,3 @@
-import validator from "validator";
 import { SumNumberBody } from "../types/sumNumber.types";
 
 export const isValidBody = (body: SumNumberBody): boolean => {
@@ -18,6 +17,7 @@ export const isValidBody = (body: SumNumberBody): boolean => {
 };
 
 export const isAllDigits = (ch: string): boolean => {
+  if (ch.length === 0) return false;
   let i = 0;
   while (i < ch.length && ch[i] >= "0" && ch[i] <= "9") {
     i++;
@@ -34,5 +34,5 @@ export const isNEqualToLength = (ch: string, n: number): boolean => {
 };
 
 export const isValidN = (n: number): boolean => {
-  return validator.isInt(String(n)) && n > 0;
+  return Number.isInteger(n) && n > 0;
 };
