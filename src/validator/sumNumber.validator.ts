@@ -1,18 +1,18 @@
 import { SumNumberBody } from "../types/sumNumber.types";
 
-export const isValidBody = (body: SumNumberBody): boolean => {
+export const isValidBody = (body: unknown): boolean => {
+  if (typeof body !== "object" || body === null) return false;
+
   for (const key of Object.keys(body)) {
-    if (key !== "ch" && key !== "n") return false;
+    if (key !== "ch" && key !== "n" && key !== "sanitize") return false;
   }
-  if (
-    body.ch === undefined ||
-    body.ch === null ||
-    body.ch === "" ||
-    body.n === undefined ||
-    body.n === null
-  ) {
-    return false;
-  }
+
+  const { ch, n, sanitize } = body as SumNumberBody;
+
+  if (ch === undefined || ch === null || ch === "") return false;
+  if (n === undefined || n === null) return false;
+  if (sanitize !== undefined && typeof sanitize !== "boolean") return false;
+
   return true;
 };
 
