@@ -80,16 +80,8 @@ export const getCallsHistory = (req: Request, res: Response) => {
   return res.status(200).json(getAllCalls());
 };
 
-export const getCallById = (req: Request, res: Response) => {
-  const id = Number(req.params.instance);
-
-  if (!Number.isInteger(id) || id <= 0) {
-    return res
-      .status(400)
-      .json({ message: "call id must be a positive integer" });
-  }
-
-  const result = getCallByInstance(id);
+export const getCallById = (req: Request<{ id: number }>, res: Response) => {
+  const result = getCallByInstance(req.params.id);
 
   if (!result) {
     return res.status(404).json({ message: "call id not found" });

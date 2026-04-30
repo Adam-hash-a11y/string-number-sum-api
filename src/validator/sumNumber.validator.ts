@@ -36,3 +36,10 @@ export const isNEqualToLength = (ch: string, n: number): boolean => {
 export const isValidN = (n: number): boolean => {
   return Number.isInteger(n) && n > 0;
 };
+
+export const isAPositiveNumber = (str: string): boolean => {
+  if (!Number.isInteger(str) || Number(str) <= 0) {
+    return false;
+  }
+  return true;
+};
