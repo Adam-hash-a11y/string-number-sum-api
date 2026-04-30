@@ -30,3 +30,7 @@ export const getMaxDigit = (ch: string): number => {
 export const removeDigit = (ch: string, digit: number): string => {
   return ch.replace(String(digit), "");
 };
+
+export const sanitizeCh = (ch: string): string => {
+  return ch.replaceAll(/\s/g, "");
+};
