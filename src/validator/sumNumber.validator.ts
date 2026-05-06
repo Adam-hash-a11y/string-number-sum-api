@@ -1,3 +1,4 @@
+import { CallStatus } from "../types/callLog.types";
 import { SumNumberBody } from "../types/sumNumber.types";
 
 export const isValidBody = (body: unknown): boolean => {
@@ -42,5 +43,10 @@ export const isAPositiveNumber = (str: string): boolean => {
     return false;
   }
   return true;
+};
 
+export const isValidStatus = (status: CallStatus): boolean => {
+  if (typeof status !== "string") return false;
+
+  return status === "success" || status === "failed";
 };
