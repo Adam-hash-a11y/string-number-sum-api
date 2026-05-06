@@ -5,11 +5,13 @@ export const validateGetCallById = (
   res: Response,
   next: NextFunction,
 ) => {
-  if (isAPositiveNumber(req.params.id as string)) {
+  const id = req.params.id;
+
+  if (!isAPositiveNumber(String(id))) {
     return res
       .status(400)
       .json({ message: "call id must be a positive integer" });
   }
-  req.params.id = Number(req.params.id);
+
   next();
 };
