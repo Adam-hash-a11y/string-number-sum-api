@@ -3,9 +3,27 @@ import {
   sumAllDigits,
   getMaxDigit,
   removeDigit,
+  processSum,
 } from "../../src/service/sumNumberService";
 
+jest.mock("../../src/repository/sum.repository");
+
 describe("test sumAllDigits funtion", () => {
+  it("should return sum of top N digits when n is smaller than string length", async () => {
+    // Given
+    const data = {
+      ch: "123456",
+      n: 3,
+      sanitize: false,
+    };
+
+    // When
+    const result = await processSum(data);
+
+    // Then
+    expect(result).toBe(15);
+  });
+
   it("should return  the sum of all number when given a valid string", () => {
     //Given
     const ch = "123";
