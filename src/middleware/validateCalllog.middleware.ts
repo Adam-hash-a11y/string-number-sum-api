@@ -16,7 +16,5 @@ export const validateGetCallLogs = (
         .json({ message: "status must be success or failed" });
     }
   }
-
-  next();git add src/routes/sumNumber.route.ts src/routes/tracking.route.ts src/controller/sumNumber.controller.ts src/service/sumNumberService.ts src/validator/sumNumber.validator.ts
-
+  next();
 };
