@@ -6,6 +6,7 @@ import {
   isNGreaterThanLength,
   isNEqualToLength,
   isValidN,
+  isValidStatus,
 } from "../../src/validator/sumNumber.validator";
 
 describe("test isValidBody validator function", () => {
@@ -204,5 +205,51 @@ describe("test isValidN validator function", () => {
 
     //Then
     expect(result).toBeFalsy();
+  });
+});
+
+describe("isValidStatus", () => {
+  it("should return true when status is success", () => {
+    // Given
+    const status = "success";
+
+    // When
+    const result = isValidStatus(status);
+
+    // Then
+    expect(result).toBe(true);
+  });
+
+  it("should return true when status is failed", () => {
+    // Given
+    const status = "failed";
+
+    // When
+    const result = isValidStatus(status);
+
+    // Then
+    expect(result).toBe(true);
+  });
+
+  it("should return false when status is invalid string", () => {
+    // Given
+    const status = "pending";
+
+    // When
+    const result = isValidStatus(status as any);
+
+    // Then
+    expect(result).toBe(false);
+  });
+
+  it("should return false when status is not a string", () => {
+    // Given
+    const status = 123;
+
+    // When
+    const result = isValidStatus(status as any);
+
+    // Then
+    expect(result).toBe(false);
   });
 });
