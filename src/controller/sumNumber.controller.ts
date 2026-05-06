@@ -83,6 +83,7 @@ export const getCallsHistory = (req: Request, res: Response) => {
 export const getCallById = (req: Request<{ id: number }>, res: Response) => {
   const result = getCallByInstance(req.params.id);
 
+
   if (!result) {
     return res.status(404).json({ message: "call id not found" });
   }
