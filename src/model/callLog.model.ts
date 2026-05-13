@@ -6,7 +6,7 @@ const callLogSchema = new Schema(
     status: { type: String, enum: ["success", "failed"], required: true },
     data: {
       ch: { type: String, required: true },
-      n: { type: Number, required: true },
+      n: { type: String, required: true },
       sanitize: { type: Boolean, required: false, default: undefined },
       result: { type: Number, default: null },
     },
