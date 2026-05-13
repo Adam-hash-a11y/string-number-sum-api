@@ -7,7 +7,8 @@ import {
   isValidN,
   isNGreaterThanLength,
 } from "../validator/sumNumber.validator";
-import { sanitizeCh } from "../service/sumNumberService";
+import { sanitizeCh, sumTopNDigits } from "../service/sumNumberService";
+import { createCallLog } from "../service/callLogService";
 
 export const sumNumberMiddleware = (
   req: Request<{ id: number | string }>,
@@ -27,6 +28,11 @@ export const sumNumberMiddleware = (
   }
 
   if (!isValidN(n)) {
+    createCallLog({
+      callInstance: 0,
+      status: "failed",
+      data: { ch, n, result: null },
+    });
     return res.status(400).json({ message: "n must be a positive integer" });
   }
 
@@ -35,6 +41,13 @@ export const sumNumberMiddleware = (
       .status(400)
       .json({ message: "n cannot exceed the length of ch" });
   }
+
+  const result = sumTopNDigits(ch, n);
+  createCallLog({
+    callInstance: 0,
+    status: "success",
+    data: { ch: cleanCh, n, result: result },
+  });
 
   req.body.ch = cleanCh;
   next();
