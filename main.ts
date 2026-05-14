@@ -1,4 +1,4 @@
-import { app } from "./src/api/api";
+import { app } from "./app";
 import { connectDB } from "./src/config/dbConfig";
 import dotenv from "dotenv";
 dotenv.config();
