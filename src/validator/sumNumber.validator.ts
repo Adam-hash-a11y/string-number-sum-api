@@ -1,3 +1,4 @@
+import { CallStatus } from "../types/callLog.types";
 import { SumNumberBody } from "../types/sumNumber.types";
 
 export const isValidBody = (body: unknown): boolean => {
@@ -37,9 +38,14 @@ export const isValidN = (n: number): boolean => {
   return Number.isInteger(n) && n > 0;
 };
 
-export const isAPositiveNumber = (str: string): boolean => {
-  if (!Number.isInteger(str) || Number(str) <= 0) {
-    return false;
-  }
-  return true;
+export const isAPositiveNumber = (value: string): boolean => {
+  const num = Number(value);
+
+  return Number.isInteger(num) && num > 0;
+};
+
+export const isValidStatus = (status: CallStatus): boolean => {
+  if (typeof status !== "string") return false;
+
+  return status === "success" || status === "failed";
 };
