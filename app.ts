@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { router } from "../routes";
+import { router } from "./src/routes";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 
@@ -46,8 +46,8 @@ app.use(
       error: "Slow down, Please try again in 5 minutes.",
       retryAfter: "5 minutes",
     },
-    legacyHeaders: false, 
-    standardHeaders: "draft-7", 
+    legacyHeaders: false,
+    standardHeaders: "draft-7",
   }),
 );
 
