@@ -1,3 +1,6 @@
+import { saveSum } from "../repository/sum.repository";
+import { SumNumberBody } from "../types/sumNumber.types";
+
 export const sumTopNDigits = (ch: string, n: number): number => {
   let remaining = ch;
   let sum = 0;
@@ -34,3 +37,26 @@ export const removeDigit = (ch: string, digit: number): string => {
 export const sanitizeCh = (ch: string): string => {
   return ch.replaceAll(/\s/g, "");
 };
+
+export const processSum = async (data: SumNumberBody): Promise<number> => {
+  let cleanCh: string;
+
+  if (data.sanitize === true) {
+    cleanCh = sanitizeCh(data.ch);
+  } else {
+    cleanCh = data.ch;
+  }
+
+  let result: number;
+
+  if (cleanCh.length === data.n) {
+    result = sumAllDigits(cleanCh);
+  } else {
+    result = sumTopNDigits(cleanCh, data.n);
+  }
+
+  await saveSum(data);
+
+  return result;
+};
+
