@@ -3,7 +3,6 @@ import { app } from "../../src/api/api";
 import { Server } from "node:http";
 import jwt from "jsonwebtoken";
 
-
 jest.mock("../../src/repository/sum.repository");
 jest.mock("../../src/repository/callLog.repository");
 
@@ -312,36 +311,36 @@ describe("GET /api/calls-history/:id", () => {
     expect(res.body.message).toBe("call log not found");
   });
 
-  it("should return 404 when id is 0", async () => {
+  it("should return 400 when id is 0", async () => {
     // Given / When
     const res = await request(app)
       .get("/api/calls-history/0")
       .set("Authorization", `Bearer ${token}`);
 
     // Then
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("call log not found");
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("call id must be a positive integer");
   });
 
-  it("should return 404 when id is negative", async () => {
+  it("should return 400 when id is negative", async () => {
     // Given / When
     const res = await request(app)
       .get("/api/calls-history/-1")
       .set("Authorization", `Bearer ${token}`);
 
     // Then
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("call log not found");
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("call id must be a positive integer");
   });
 
-  it("should return 404 when id is not a number", async () => {
+  it("should return 400 when id is not a number", async () => {
     // Given / When
     const res = await request(app)
       .get("/api/calls-history/abc")
       .set("Authorization", `Bearer ${token}`);
 
     // Then
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe("call log not found");
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("call id must be a positive integer");
   });
 });
