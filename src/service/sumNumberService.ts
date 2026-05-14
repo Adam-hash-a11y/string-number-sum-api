@@ -1,3 +1,6 @@
+import { saveSum } from "../repository/sum.repository";
+import { SumNumberBody } from "../types/sumNumber.types";
+
 export const sumTopNDigits = (ch: string, n: number): number => {
   let remaining = ch;
   let sum = 0;
@@ -19,7 +22,7 @@ export const sumAllDigits = (ch: string): number => {
   return sum;
 };
 
-const getMaxDigit = (ch: string): number => {
+export const getMaxDigit = (ch: string): number => {
   let max = Number(ch[0]);
   for (const digit of ch) {
     if (Number(digit) > max) max = Number(digit);
@@ -27,6 +30,33 @@ const getMaxDigit = (ch: string): number => {
   return max;
 };
 
-const removeDigit = (ch: string, digit: number): string => {
+export const removeDigit = (ch: string, digit: number): string => {
   return ch.replace(String(digit), "");
 };
+
+export const sanitizeCh = (ch: string): string => {
+  return ch.replaceAll(/\s/g, "");
+};
+
+export const processSum = async (data: SumNumberBody): Promise<number> => {
+  let cleanCh: string;
+
+  if (data.sanitize === true) {
+    cleanCh = sanitizeCh(data.ch);
+  } else {
+    cleanCh = data.ch;
+  }
+
+  let result: number;
+
+  if (cleanCh.length === data.n) {
+    result = sumAllDigits(cleanCh);
+  } else {
+    result = sumTopNDigits(cleanCh, data.n);
+  }
+
+  await saveSum(data);
+
+  return result;
+};
+
