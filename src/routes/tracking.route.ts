@@ -1,7 +1,10 @@
 import express from "express";
-import { getCallsHistory, getCallById } from "../controller/sumNumber.controller";
+import { getCallLog, getCallLogs } from "../controller/callLog.controller";
+import { validateGetCallById } from "../middleware/callHistory.middleware";
+import { authMiddleware } from "../middleware/auth.middleware";
+import { validateGetCallLogs } from "../middleware/validateCalllog.middleware";
 
 export const trackingRouter = express.Router();
-
-trackingRouter.get("/", getCallsHistory);
-trackingRouter.get("/:id", getCallById)
+trackingRouter.use(authMiddleware);
+trackingRouter.get("/", validateGetCallLogs, getCallLogs);
+trackingRouter.get("/:id", validateGetCallById, getCallLog);
