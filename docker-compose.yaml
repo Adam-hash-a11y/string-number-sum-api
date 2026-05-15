@@ -1,0 +1,30 @@
+services:
+  api:
+    build: .
+    container_name: sum-api
+    ports:
+      - "5003:5003"
+    environment:
+      PORT: 5003
+      JWT_SECRET: b-string-secret-at-least-256-bits-long
+      MONGO_URI: mongodb://admin:password123@mongodb:27017/myapp?authSource=admin
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  mongodb:
+    image: mongo:7
+    container_name: express-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: sum-api
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
