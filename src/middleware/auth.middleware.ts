@@ -17,7 +17,7 @@ export function authMiddleware(
     // @ts-expect-error: user is added by auth middleware after JWT verification
     req.user = decoded;
     next();
-  } catch (err) {
-    return res.status(403).json({ error: err });
+  } catch {
+    return res.status(403).json({ error: "Invalid or expired token" });
   }
 }
