@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const callLogSchema = new Schema(
   {
-    callInstance: { type: Number, required: true },
+    callInstance: { type: Number, required: true, unique: true },
     status: { type: String, enum: ["success", "failed"], required: true },
     data: {
       ch: { type: String, required: true },

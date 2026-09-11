@@ -1,11 +1,12 @@
 // src/repositories/callLog.repository.ts
 import { CallLogModel } from "../model/callLog.model";
 import { CallStatus, CallLog } from "../types/callLog.types";
+import { getNextCount } from "./counter.repository";
 
 export const saveCallLog = async (data: CallLog) => {
   try {
-    const count = await CallLogModel.countDocuments();
-    const doc = new CallLogModel({ ...data, callInstance: count + 1 });
+    const callInstance = await getNextCount("callInstance");
+    const doc = new CallLogModel({ ...data, callInstance });
     return await doc.save();
   } catch (error) {
     throw new Error("Error saving call log:", { cause: error });
