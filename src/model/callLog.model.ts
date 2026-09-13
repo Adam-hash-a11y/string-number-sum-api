@@ -3,7 +3,9 @@ import mongoose, { Schema } from "mongoose";
 const callLogSchema = new Schema(
   {
     callInstance: { type: Number, required: true, unique: true },
+
     status: { type: String, enum: ["success", "failed"], required: true },
+
     data: {
       ch: { type: String, required: true },
       n: { type: Number, required: true },
@@ -13,5 +15,7 @@ const callLogSchema = new Schema(
   },
   { timestamps: true },
 );
+
+callLogSchema.index({ status: 1 });
 
 export const CallLogModel = mongoose.model("CallLog", callLogSchema);
