@@ -32,24 +32,25 @@ app.use(
     },
   }),
 );
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "10kb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "10kb" }));
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(
-  rateLimit({
-    windowMs: 5 * 60 * 1000,
-    max: 10000,
-    statusCode: 429,
-    message: {
-      success: false,
-      error: "Slow down, Please try again in 5 minutes.",
-      retryAfter: "5 minutes",
-    },
-    legacyHeaders: false,
-    standardHeaders: "draft-7",
-  }),
-);
+if (process.env.NODE_ENV !== "test") {
+  app.use(
+    rateLimit({
+      windowMs: 5 * 60 * 1000,
+      max: 10,
+      statusCode: 429,
+      message: {
+        success: false,
+        error: "Slow down, Please try again in 5 minutes.",
+        retryAfter: "5 minutes",
+      },
+      legacyHeaders: false,
+      standardHeaders: "draft-7",
+    }),
+  );
+}
 
 app.get("/", (req, res) => {
   res.status(200).send("hello");
