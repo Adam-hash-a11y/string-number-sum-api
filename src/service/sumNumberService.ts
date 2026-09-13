@@ -56,7 +56,7 @@ export const processSum = async (data: SumNumberBody): Promise<number> => {
     result = sumTopNDigits(cleanCh, data.n);
   }
 
-  createCallLog({
+  await createCallLog({
     callInstance: 0,
     status: "success",
     data: { ch: cleanCh, n: data.n, result },
