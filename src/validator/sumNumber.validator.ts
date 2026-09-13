@@ -49,3 +49,7 @@ export const isValidStatus = (status: CallStatus): boolean => {
 
   return status === "success" || status === "failed";
 };
+
+export const isValidChLength = (ch: string): boolean => {
+  return ch.length <= 100;
+};
