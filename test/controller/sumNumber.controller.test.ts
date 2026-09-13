@@ -230,6 +230,33 @@ describe("POST /api/sumNumber/", () => {
     expect(res.status).toBe(400);
     expect(res.body.message).toBe("n must be a positive integer");
   });
+  it("should return 400 when ch exceeds maximum length", async () => {
+    // Given
+    const body = { ch: "1".repeat(101), n: 3 };
+
+    // When
+    const res = await request(app)
+      .post("/api/sumNumber")
+      .set("Authorization", `Bearer ${token}`)
+      .send(body);
+
+    // Then
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("ch is too long");
+  });
+
+  it("should accept ch when it is exactly 100 characters", async () => {
+    // Given
+    const body = { ch: "1".repeat(100), n: 3 };
+
+    // When
+    const res = await request(app)
+      .post("/api/sumNumber")
+      .set("Authorization", `Bearer ${token}`)
+      .send(body);
+
+    // Then
+    expect(res.status).toBe(200);
+    expect(res.body.data).toBe(3);
+  });
 });
-
-

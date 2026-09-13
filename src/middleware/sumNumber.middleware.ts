@@ -6,6 +6,7 @@ import {
   isAllDigits,
   isValidN,
   isNGreaterThanLength,
+  isValidChLength,
 } from "../validator/sumNumber.validator";
 import { sanitizeCh } from "../service/sumNumberService";
 import { createCallLog } from "../service/callLogService";
@@ -22,6 +23,10 @@ export const sumNumberMiddleware = (
   const { n, ch, sanitize } = req.body as SumNumberBody;
 
   const cleanCh = sanitize === true ? sanitizeCh(ch) : ch;
+
+  if (!isValidChLength(cleanCh)) {
+    return res.status(400).json({ message: "ch is too long" });
+  }
 
   if (!isAllDigits(cleanCh)) {
     return res.status(400).json({ message: "ch must be a numeric string" });

@@ -7,6 +7,7 @@ import {
   isNEqualToLength,
   isValidN,
   isValidStatus,
+  isValidChLength,
 } from "../../src/validator/sumNumber.validator";
 
 describe("test isValidBody validator function", () => {
@@ -251,5 +252,29 @@ describe("isValidStatus", () => {
 
     // Then
     expect(result).toBe(false);
+  });
+});
+
+describe("test isValidChLength validator function", () => {
+  it("should return true if the given string has 100 or fewer characters", () => {
+    //Given
+    const ch = "1".repeat(100);
+
+    //When
+    const result = isValidChLength(ch);
+
+    //Then
+    expect(result).toBeTruthy();
+  });
+
+  it("should return false if the given string has more than 100 characters", () => {
+    //Given
+    const ch = "1".repeat(101);
+
+    //When
+    const result = isValidChLength(ch);
+
+    //Then
+    expect(result).toBeFalsy();
   });
 });
