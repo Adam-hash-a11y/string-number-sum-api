@@ -4,7 +4,9 @@ export async function connectDB(): Promise<void> {
   const uri = process.env.MONGO_URI as string;
 
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+    });
     console.log("Connected to local MongoDB successfully");
   } catch (err) {
     console.error("Connection error:", err);
