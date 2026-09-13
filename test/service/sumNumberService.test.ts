@@ -7,6 +7,7 @@ import {
 } from "../../src/service/sumNumberService";
 
 jest.mock("../../src/repository/sum.repository");
+jest.mock("../../src/service/callLogService");
 
 describe("test sumAllDigits funtion", () => {
   it("should return sum of top N digits when n is smaller than string length", async () => {

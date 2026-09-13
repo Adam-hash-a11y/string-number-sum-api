@@ -1,5 +1,6 @@
 import { saveSum } from "../repository/sum.repository";
 import { SumNumberBody } from "../types/sumNumber.types";
+import { createCallLog } from "./callLogService";
 
 export const sumTopNDigits = (ch: string, n: number): number => {
   let remaining = ch;
@@ -55,8 +56,13 @@ export const processSum = async (data: SumNumberBody): Promise<number> => {
     result = sumTopNDigits(cleanCh, data.n);
   }
 
+  createCallLog({
+    callInstance: 0,
+    status: "success",
+    data: { ch: cleanCh, n: data.n, result },
+  });
+
   await saveSum(data);
 
   return result;
 };
-
