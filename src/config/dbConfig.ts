@@ -8,5 +8,6 @@ export async function connectDB(): Promise<void> {
     console.log("Connected to local MongoDB successfully");
   } catch (err) {
     console.error("Connection error:", err);
+    throw err;
   }
 }
