@@ -57,17 +57,10 @@ app.get("/", (req, res) => {
 
 app.use("/api", router);
 
-app.use(
-  (
-    err: Error,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction,
-  ) => {
-    console.error(err);
+app.use((err: Error, req: express.Request, res: express.Response) => {
+  console.error(err);
 
-    return res.status(500).json({
-      message: "Internal server error",
-    });
-  },
-);
+  return res.status(500).json({
+    message: "Internal server error",
+  });
+});
