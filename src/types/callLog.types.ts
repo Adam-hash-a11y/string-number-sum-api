@@ -6,7 +6,7 @@ export type CallLog = {
   data: {
     n: number;
     ch: string;
-    sanitize?: boolean
+    sanitize?: boolean;
     result: number | null;
   };
 };
